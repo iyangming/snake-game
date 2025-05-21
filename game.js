@@ -37,8 +37,7 @@ function gameLoop() {
     // Check collision
     if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || 
         snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
-        alert('Game Over! Score: ' + score);
-        resetGame();
+        gameOver();
         return;
     }
     
@@ -92,6 +91,7 @@ let gameInterval;
 
 function startGame() {
     if (!gameRunning) {
+        resetGame();  // 添加这行确保每次开始都重置游戏状态
         gameRunning = true;
         gameInterval = setInterval(gameLoop, 100);
         document.getElementById('startBtn').textContent = '重新开始';
@@ -117,12 +117,6 @@ function updateScoreDisplay() {
 }
 
 // 修改gameLoop函数中的alert为更新UI
-if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || 
-    snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
-    gameOver();
-    return;
-}
-
 function gameOver() {
     clearInterval(gameInterval);
     gameRunning = false;
@@ -130,9 +124,8 @@ function gameOver() {
     updateScoreDisplay();
 }
 
-// 添加按钮事件监听
-document.getElementById('startBtn').addEventListener('click', startGame);
-document.getElementById('pauseBtn').addEventListener('click', pauseGame);
-
-// 初始化时不自动开始游戏
-// 移除原来的 setInterval(gameLoop, 100);
+// 添加按钮事件监听 - 确保在DOM完全加载后执行
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('pauseBtn').addEventListener('click', pauseGame);
+});

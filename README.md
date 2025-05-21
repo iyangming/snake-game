@@ -1,30 +1,53 @@
 # Snake Game
 
-A classic Snake game built with HTML5 Canvas and JavaScript.
+A classic Snake game built with Vue.js and HTML5 Canvas.
 
 ## Features
-- Keyboard controls (Arrow keys)
-- Score tracking
-- Collision detection
-- Responsive design
-
-## How to Play
-1. Open `index.html` in your browser
-2. Use arrow keys to control the snake:
-   - ↑ Up
-   - ↓ Down
-   - ← Left
-   - → Right
-3. Eat the red food to grow longer and increase your score
-4. Avoid hitting the walls or yourself
+- 🐍 Vue 3 Composition API
+- 🎨 Canvas rendering
+- 🎮 Keyboard controls (Arrow keys)
+- ⏯️ Start/Pause/Restart functionality
+- 📊 Score tracking
 
 ## Installation
-No installation required - just open `index.html` in any modern browser.
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/snake.git
+```
 
-## Technologies Used
-- HTML5
+## Install dependencies:
+```bash
+npm install
+```
+## Usage
+ Start the development server:
+```bash
+npm run dev
+```
+Open your browser and go to Open your browser and go to URL_ADDRESS:
+http://localhost:5173/
+
+## how to play
+Open your browser and play the game. 
+- Use the arrow keys to control the snake's direction.
+- Eat the food to grow longer.
+- Avoid colliding with the walls or your own body.
+- The game ends when you collide.
+- Click the "Restart" button to play again.     
+
+## project structure
+snake/
+├── index.html
+├── app.js
+├── SnakeGame.vue
+├── vite.config.js
+└── package.json
+
+
+##Technologies Used
+- Vue.js
+- HTML5 Canvas
 - JavaScript
-- Canvas API
 
-## License
-MIT
+License
+This project is licensed under the MIT License.

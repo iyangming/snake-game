@@ -26,6 +26,7 @@ export default {
       tileCount: 20,
       snake: [{x: 10, y: 10}],
       food: {x: 0, y: 0},
+      obstacles: [],
       velocity: {x: 0, y: 0},
       score: 0,
       highScore: localStorage.getItem('snakeHighScore') || 0,
@@ -63,6 +64,7 @@ export default {
       this.velocity = {x: 0, y: 0};
       this.score = 0;
       this.resetFood();
+      this.generateObstacles();
     },
     startGame() {
       if (!this.gameRunning) {
@@ -88,10 +90,36 @@ export default {
         this.gameInterval = setInterval(this.gameLoop, this.selectedSpeed);
       }
     },
+    generateObstacles() {
+      this.obstacles = [];
+      const obstacleCount = Math.floor(this.tileCount * this.tileCount * 0.1);
+      
+      for (let i = 0; i < obstacleCount; i++) {
+        let newObstacle;
+        do {
+          newObstacle = {
+            x: Math.floor(Math.random() * this.tileCount),
+            y: Math.floor(Math.random() * this.tileCount)
+          };
+        } while (
+          (newObstacle.x === this.food.x && newObstacle.y === this.food.y) ||
+          this.obstacles.some(obs => obs.x === newObstacle.x && obs.y === newObstacle.y)
+        );
+        
+        this.obstacles.push(newObstacle);
+      }
+    },
+    
     gameLoop() {
       // Clear canvas
       this.ctx.fillStyle = '#f0f0f0';
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      // Draw obstacles
+      this.ctx.fillStyle = '#888';
+      this.obstacles.forEach(obs => {
+        this.ctx.fillRect(obs.x * this.gridSize, obs.y * this.gridSize, this.gridSize, this.gridSize);
+      });
       
       // Move snake
       const head = {
@@ -111,7 +139,8 @@ export default {
       // Check collision
       if (head.x < 0 || head.x >= this.tileCount || 
         head.y < 0 || head.y >= this.tileCount || 
-        this.snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+        this.snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y) ||
+        this.obstacles.some(obs => obs.x === head.x && obs.y === head.y)) {
         this.gameOver();
         return;
       }

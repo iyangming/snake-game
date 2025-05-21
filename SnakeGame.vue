@@ -6,6 +6,9 @@
     <div class="controls">
       <button @click="startGame">{{ gameRunning ? 'Restart' : 'Start Game' }}</button>
       <button @click="pauseGame">{{ isPaused ? 'Resume' : 'Pause' }}</button>
+      <select v-model="selectedSpeed" @change="updateSpeed">
+        <option v-for="option in speedOptions" :value="option.value">{{ option.label }}</option>
+      </select>
     </div>
   </div>
 </template>
@@ -24,7 +27,13 @@ export default {
       score: 0,
       gameRunning: false,
       isPaused: false,
-      gameInterval: null
+      gameInterval: null,
+      speedOptions: [
+        { label: '慢速', value: 200 },
+        { label: '中速', value: 100 },
+        { label: '快速', value: 50 }
+      ],
+      selectedSpeed: 100
     }
   },
   mounted() {
@@ -56,7 +65,7 @@ export default {
         this.resetGame();
         this.gameRunning = true;
         this.isPaused = false;
-        this.gameInterval = setInterval(this.gameLoop, 100);
+        this.gameInterval = setInterval(this.gameLoop, this.selectedSpeed);
       } else {
         this.resetGame();
       }
@@ -66,7 +75,13 @@ export default {
       if (this.isPaused) {
         clearInterval(this.gameInterval);
       } else {
-        this.gameInterval = setInterval(this.gameLoop, 100);
+        this.gameInterval = setInterval(this.gameLoop, this.selectedSpeed);
+      }
+    },
+    updateSpeed() {
+      if (this.gameRunning && !this.isPaused) {
+        clearInterval(this.gameInterval);
+        this.gameInterval = setInterval(this.gameLoop, this.selectedSpeed);
       }
     },
     gameLoop() {
@@ -162,6 +177,25 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+select {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
+  text-align-last: center;
+}
+
+select:hover {
+  background-color: #45a049;
 }
 .score-display {
   font-size: 24px;

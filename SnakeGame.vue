@@ -112,14 +112,80 @@ export default {
         return;
       }
       
-      // Draw food
+      // Draw apple
       this.ctx.fillStyle = 'red';
-      this.ctx.fillRect(this.food.x * this.gridSize, this.food.y * this.gridSize, this.gridSize, this.gridSize);
+      this.ctx.beginPath();
+      this.ctx.arc(
+        this.food.x * this.gridSize + this.gridSize/2, 
+        this.food.y * this.gridSize + this.gridSize/2, 
+        this.gridSize/2, 
+        0, 
+        Math.PI * 2
+      );
+      this.ctx.fill();
+      
+      // Draw stem
+      this.ctx.fillStyle = 'brown';
+      this.ctx.fillRect(
+        this.food.x * this.gridSize + this.gridSize/2 - 1, 
+        this.food.y * this.gridSize - this.gridSize/4, 
+        2, 
+        this.gridSize/4
+      );
       
       // Draw snake
       this.ctx.fillStyle = 'green';
-      this.snake.forEach(segment => {
-        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize, this.gridSize);
+      this.snake.forEach((segment, index) => {
+        // Draw head with eyes
+        if(index === 0) {
+          this.ctx.beginPath();
+          this.ctx.arc(
+            segment.x * this.gridSize + this.gridSize/2,
+            segment.y * this.gridSize + this.gridSize/2,
+            this.gridSize/2,
+            0,
+            Math.PI * 2
+          );
+          this.ctx.fill();
+          
+          // Draw eyes
+          this.ctx.fillStyle = 'white';
+          const eyeOffsetX = this.velocity.x !== 0 ? this.velocity.x * 3 : 0;
+          const eyeOffsetY = this.velocity.y !== 0 ? this.velocity.y * 3 : 0;
+          
+          this.ctx.beginPath();
+          this.ctx.arc(
+            segment.x * this.gridSize + this.gridSize/2 - eyeOffsetX,
+            segment.y * this.gridSize + this.gridSize/2 - eyeOffsetY,
+            3,
+            0,
+            Math.PI * 2
+          );
+          this.ctx.fill();
+          
+          this.ctx.beginPath();
+          this.ctx.arc(
+            segment.x * this.gridSize + this.gridSize/2 + eyeOffsetX,
+            segment.y * this.gridSize + this.gridSize/2 + eyeOffsetY,
+            3,
+            0,
+            Math.PI * 2
+          );
+          this.ctx.fill();
+          
+          this.ctx.fillStyle = 'green';
+        } else {
+          // Draw body segments
+          this.ctx.beginPath();
+          this.ctx.arc(
+            segment.x * this.gridSize + this.gridSize/2,
+            segment.y * this.gridSize + this.gridSize/2,
+            this.gridSize/2,
+            0,
+            Math.PI * 2
+          );
+          this.ctx.fill();
+        }
       });
       
       // Display score

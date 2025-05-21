@@ -15,15 +15,15 @@ let velocity = {x: 0, y: 0};
 let score = 0;
 
 function gameLoop() {
-    // 清空画布
+    // Clear canvas
     ctx.fillStyle = '#f0f0f0';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // 移动蛇
+    // Move snake
     const head = {x: snake[0].x + velocity.x, y: snake[0].y + velocity.y};
     snake.unshift(head);
     
-    // 检查是否吃到食物
+    // Check if food is eaten
     if (head.x === food.x && head.y === food.y) {
         score++;
         food = {
@@ -34,28 +34,28 @@ function gameLoop() {
         snake.pop();
     }
     
-    // 检查碰撞
+    // Check collision
     if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || 
         snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
-        alert('游戏结束！得分: ' + score);
+        alert('Game Over! Score: ' + score);
         resetGame();
         return;
     }
     
-    // 绘制食物
+    // Draw food
     ctx.fillStyle = 'red';
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
     
-    // 绘制蛇
+    // Draw snake
     ctx.fillStyle = 'green';
     snake.forEach(segment => {
         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
     });
     
-    // 显示分数
+    // Display score
     ctx.fillStyle = 'black';
     ctx.font = '20px Arial';
-    ctx.fillText('得分: ' + score, 10, 30);
+    ctx.fillText('Score: ' + score, 10, 30);
 }
 
 function resetGame() {

@@ -120,7 +120,7 @@ function updateScoreDisplay() {
 function gameOver() {
     clearInterval(gameInterval);
     gameRunning = false;
-    alert('游戏结束！得分: ' + score);
+    alert('Game Over! Score: ' + score);
     updateScoreDisplay();
 }
 

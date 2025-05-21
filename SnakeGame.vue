@@ -173,7 +173,7 @@ export default {
       // Display score
       this.ctx.fillStyle = 'black';
       this.ctx.font = '20px Arial';
-      this.ctx.fillText('Score: ' + this.score, 10, 30);
+      this.ctx.fillText('Score: ' + this.score, this.canvas.width - 120, 30);
     },
     gameOver() {
       clearInterval(this.gameInterval);
@@ -206,14 +206,22 @@ export default {
 
 <style scoped>
 .game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
   margin: 0 auto;
-  width: fit-content;
-  text-align: center;
 }
 canvas {
-  border: 2px solid #333;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .controls {
   margin: 20px 0;
@@ -223,12 +231,20 @@ canvas {
 }
 button {
   padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
+  margin: 0 8px;
+  cursor: pointer;
+  background: #4a6bff;
   color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #3a5bef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 select {

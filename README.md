@@ -67,9 +67,7 @@ License
 This project is licensed under the MIT License.
 
 
-### change log
-
-### Change Log
+## Change Log
 
 - `3f4d2ae` - iyangming, 5 hours ago
   - docs: update README.md with Vue.js details and project structure

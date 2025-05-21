@@ -74,6 +74,12 @@ export default {
       this.score = 0;
       this.resetFood();
       this.generateObstacles();
+      
+      // 确保蛇的初始位置不与障碍物重叠
+      while (this.obstacles.some(obs => obs.x === this.snake[0].x && obs.y === this.snake[0].y)) {
+        this.snake[0].x = Math.floor(Math.random() * this.tileCount);
+        this.snake[0].y = Math.floor(Math.random() * this.tileCount);
+      }
     },
     startGame() {
       if (!this.gameRunning) {

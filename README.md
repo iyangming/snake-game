@@ -69,11 +69,28 @@ This project is licensed under the MIT License.
 
 ### change log
 
-3f4d2ae - iyangming, 5 hours ago : docs: update README.md with Vue.js details and project structure
-c7d2ca6 - iyangming, 5 hours ago : feat: initialize Vue.js snake game with Vite build setup
-a86f9ab - iyangming, 6 hours ago : docs(game): translate comments and button text to English
-adef98d - iyangming, 6 hours ago : docs(game): translate game over message to English
-3a09f6b - iyangming, 6 hours ago : refactor(game): replace alert with gameOver function and ensure DOM loaded
-ad096ba - iyangming, 6 hours ago : feat: add game controls and improve UI styling
-656de17 - iyangming, 6 hours ago : docs: add README.md and update game.js comments to English
-841e15d - iyangming, 6 hours ago : Initial commit - Snake game project
+### Change Log
+
+- `3f4d2ae` - iyangming, 5 hours ago
+  - docs: update README.md with Vue.js details and project structure
+
+- `c7d2ca6` - iyangming, 5 hours ago
+  - feat: initialize Vue.js snake game with Vite build setup
+
+- `a86f9ab` - iyangming, 6 hours ago
+  - docs(game): translate comments and button text to English
+
+- `adef98d` - iyangming, 6 hours ago
+  - docs(game): translate game over message to English
+
+- `3a09f6b` - iyangming, 6 hours ago
+  - refactor(game): replace alert with gameOver function and ensure DOM loaded
+
+- `ad096ba` - iyangming, 6 hours ago
+  - feat: add game controls and improve UI styling
+
+- `656de17` - iyangming, 6 hours ago
+  - docs: add README.md and update game.js comments to English
+
+- `841e15d` - iyangming, 6 hours ago
+  - Initial commit - Snake game project

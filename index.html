@@ -1,56 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>贪吃蛇游戏</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-        .game-container {
-            margin: 0 auto;
-            width: fit-content;
-        }
-        canvas {
-            border: 2px solid #333;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .controls {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .score-display {
-            font-size: 24px;
-            margin: 10px 0;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Snake Game</title>
 </head>
 <body>
-    <h1>贪吃蛇游戏</h1>
-    <div class="game-container">
-        <div class="score-display">得分: <span id="score">0</span></div>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div class="controls">
-            <button id="startBtn">开始游戏</button>
-            <button id="pauseBtn">暂停</button>
-        </div>
-    </div>
-    <script src="game.js"></script>
+  <div id="app"></div>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

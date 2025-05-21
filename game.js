@@ -67,7 +67,7 @@ function resetGame() {
     };
 }
 
-// 键盘控制
+// Keyboard controls
 document.addEventListener('keydown', event => {
     switch(event.key) {
         case 'ArrowUp':
@@ -91,10 +91,10 @@ let gameInterval;
 
 function startGame() {
     if (!gameRunning) {
-        resetGame();  // 添加这行确保每次开始都重置游戏状态
+        resetGame();
         gameRunning = true;
         gameInterval = setInterval(gameLoop, 100);
-        document.getElementById('startBtn').textContent = '重新开始';
+        document.getElementById('startBtn').textContent = 'Restart';
     } else {
         resetGame();
     }
@@ -104,10 +104,10 @@ function pauseGame() {
     gameRunning = !gameRunning;
     if (gameRunning) {
         gameInterval = setInterval(gameLoop, 100);
-        document.getElementById('pauseBtn').textContent = '暂停';
+        document.getElementById('pauseBtn').textContent = 'Pause';
     } else {
         clearInterval(gameInterval);
-        document.getElementById('pauseBtn').textContent = '继续';
+        document.getElementById('pauseBtn').textContent = 'Resume';
     }
 }
 

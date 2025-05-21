@@ -87,4 +87,52 @@ document.addEventListener('keydown', event => {
 });
 
 // 开始游戏
-setInterval(gameLoop, 100);
+let gameRunning = false;
+let gameInterval;
+
+function startGame() {
+    if (!gameRunning) {
+        gameRunning = true;
+        gameInterval = setInterval(gameLoop, 100);
+        document.getElementById('startBtn').textContent = '重新开始';
+    } else {
+        resetGame();
+    }
+}
+
+function pauseGame() {
+    gameRunning = !gameRunning;
+    if (gameRunning) {
+        gameInterval = setInterval(gameLoop, 100);
+        document.getElementById('pauseBtn').textContent = '暂停';
+    } else {
+        clearInterval(gameInterval);
+        document.getElementById('pauseBtn').textContent = '继续';
+    }
+}
+
+// 更新分数显示
+function updateScoreDisplay() {
+    document.getElementById('score').textContent = score;
+}
+
+// 修改gameLoop函数中的alert为更新UI
+if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || 
+    snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+    gameOver();
+    return;
+}
+
+function gameOver() {
+    clearInterval(gameInterval);
+    gameRunning = false;
+    alert('游戏结束！得分: ' + score);
+    updateScoreDisplay();
+}
+
+// 添加按钮事件监听
+document.getElementById('startBtn').addEventListener('click', startGame);
+document.getElementById('pauseBtn').addEventListener('click', pauseGame);
+
+// 初始化时不自动开始游戏
+// 移除原来的 setInterval(gameLoop, 100);

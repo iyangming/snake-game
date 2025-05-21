@@ -12,6 +12,9 @@
       <select v-model="selectedSpeed" @change="updateSpeed">
         <option v-for="option in speedOptions" :value="option.value">{{ option.label }}</option>
       </select>
+      <select v-model="selectedDifficulty" @change="generateObstacles">
+        <option v-for="option in difficultyOptions" :value="option.value">{{ option.label }}</option>
+      </select>
     </div>
   </div>
 </template>
@@ -38,7 +41,13 @@ export default {
         { label: '中速', value: 100 },
         { label: '快速', value: 50 }
       ],
-      selectedSpeed: 100
+      selectedSpeed: 100,
+      difficultyOptions: [
+        { label: '简单', value: 0.05 },
+        { label: '中等', value: 0.1 },
+        { label: '困难', value: 0.2 }
+      ],
+      selectedDifficulty: 0.1
     }
   },
   mounted() {
@@ -92,7 +101,7 @@ export default {
     },
     generateObstacles() {
       this.obstacles = [];
-      const obstacleCount = Math.floor(this.tileCount * this.tileCount * 0.1);
+      const obstacleCount = Math.floor(this.tileCount * this.tileCount * this.selectedDifficulty);
       
       for (let i = 0; i < obstacleCount; i++) {
         let newObstacle;

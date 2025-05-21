@@ -1,7 +1,10 @@
 <template>
   <div class="game-container">
     <h1>Snake Game</h1>
-    <div class="score-display">Score: {{ score }}</div>
+    <div class="score-display">
+      <div>当前分数: {{ score }}</div>
+      <div>最高分数: {{ highScore }}</div>
+    </div>
     <canvas ref="gameCanvas" width="400" height="400"></canvas>
     <div class="controls">
       <button @click="startGame">{{ gameRunning ? 'Restart' : 'Start Game' }}</button>
@@ -25,6 +28,7 @@ export default {
       food: {x: 0, y: 0},
       velocity: {x: 0, y: 0},
       score: 0,
+      highScore: localStorage.getItem('snakeHighScore') || 0,
       gameRunning: false,
       isPaused: false,
       gameInterval: null,
@@ -112,80 +116,14 @@ export default {
         return;
       }
       
-      // Draw apple
+      // Draw food
       this.ctx.fillStyle = 'red';
-      this.ctx.beginPath();
-      this.ctx.arc(
-        this.food.x * this.gridSize + this.gridSize/2, 
-        this.food.y * this.gridSize + this.gridSize/2, 
-        this.gridSize/2, 
-        0, 
-        Math.PI * 2
-      );
-      this.ctx.fill();
-      
-      // Draw stem
-      this.ctx.fillStyle = 'brown';
-      this.ctx.fillRect(
-        this.food.x * this.gridSize + this.gridSize/2 - 1, 
-        this.food.y * this.gridSize - this.gridSize/4, 
-        2, 
-        this.gridSize/4
-      );
+      this.ctx.fillRect(this.food.x * this.gridSize, this.food.y * this.gridSize, this.gridSize, this.gridSize);
       
       // Draw snake
       this.ctx.fillStyle = 'green';
-      this.snake.forEach((segment, index) => {
-        // Draw head with eyes
-        if(index === 0) {
-          this.ctx.beginPath();
-          this.ctx.arc(
-            segment.x * this.gridSize + this.gridSize/2,
-            segment.y * this.gridSize + this.gridSize/2,
-            this.gridSize/2,
-            0,
-            Math.PI * 2
-          );
-          this.ctx.fill();
-          
-          // Draw eyes
-          this.ctx.fillStyle = 'white';
-          const eyeOffsetX = this.velocity.x !== 0 ? this.velocity.x * 3 : 0;
-          const eyeOffsetY = this.velocity.y !== 0 ? this.velocity.y * 3 : 0;
-          
-          this.ctx.beginPath();
-          this.ctx.arc(
-            segment.x * this.gridSize + this.gridSize/2 - eyeOffsetX,
-            segment.y * this.gridSize + this.gridSize/2 - eyeOffsetY,
-            3,
-            0,
-            Math.PI * 2
-          );
-          this.ctx.fill();
-          
-          this.ctx.beginPath();
-          this.ctx.arc(
-            segment.x * this.gridSize + this.gridSize/2 + eyeOffsetX,
-            segment.y * this.gridSize + this.gridSize/2 + eyeOffsetY,
-            3,
-            0,
-            Math.PI * 2
-          );
-          this.ctx.fill();
-          
-          this.ctx.fillStyle = 'green';
-        } else {
-          // Draw body segments
-          this.ctx.beginPath();
-          this.ctx.arc(
-            segment.x * this.gridSize + this.gridSize/2,
-            segment.y * this.gridSize + this.gridSize/2,
-            this.gridSize/2,
-            0,
-            Math.PI * 2
-          );
-          this.ctx.fill();
-        }
+      this.snake.forEach(segment => {
+        this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize, this.gridSize);
       });
       
       // Display score
@@ -196,7 +134,11 @@ export default {
     gameOver() {
       clearInterval(this.gameInterval);
       this.gameRunning = false;
-      alert('Game Over! Score: ' + this.score);
+      if (this.score > this.highScore) {
+        this.highScore = this.score;
+        localStorage.setItem('snakeHighScore', this.highScore);
+      }
+      alert('游戏结束! 当前分数: ' + this.score + ' 最高分数: ' + this.highScore);
     },
     handleKeyPress(event) {
       switch(event.key) {

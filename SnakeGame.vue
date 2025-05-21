@@ -2,8 +2,8 @@
   <div class="game-container">
     <h1>Snake Game</h1>
     <div class="score-display">
-      <div>当前分数: {{ score }}</div>
-      <div>最高分数: {{ highScore }}</div>
+      <div>Score: {{ score }}</div>
+      <div>High Score: {{ highScore }}</div>
     </div>
     <canvas ref="gameCanvas" width="400" height="400"></canvas>
     <div class="controls">
@@ -170,10 +170,7 @@ export default {
         this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize, this.gridSize);
       });
       
-      // Display score
-      this.ctx.fillStyle = 'black';
-      this.ctx.font = '20px Arial';
-      this.ctx.fillText('Score: ' + this.score, this.canvas.width - 120, 30);
+
     },
     gameOver() {
       clearInterval(this.gameInterval);

@@ -92,6 +92,7 @@ export default {
       }
     },
     pauseGame() {
+      if (!this.gameRunning) return;
       this.isPaused = !this.isPaused;
       if (this.isPaused) {
         clearInterval(this.gameInterval);
@@ -194,6 +195,13 @@ export default {
           break;
         case 'ArrowRight':
           if (this.velocity.x === 0) this.velocity = {x: 1, y: 0};
+          break;
+        case ' ':
+          if (this.gameRunning) {
+            this.pauseGame();
+          } else if (!this.isPaused) {
+            this.startGame();
+          }
           break;
       }
     }
